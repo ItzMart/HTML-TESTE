@@ -3,13 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Cliques</title>
+    <title>Contador de Cliques com Ranking</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Contador de Cliques</h1>
-    <button id="clickButton">Clique aqui</button>
-    <div class="counter" id="counterDisplay">Cliques: 0</div>
+    <div id="welcomeScreen" class="welcome-screen">
+        <h1>Bem-vindo ao Contador de Cliques</h1>
+        <input type="text" id="usernameInput" placeholder="Digite seu nome">
+        <button id="startButton">Entrar</button>
+    </div>
+
+    <div id="mainApp" class="main-app hidden">
+        <header>
+            <h1>Contador de Cliques</h1>
+            <button id="themeToggle">Alternar Tema</button>
+        </header>
+        <main>
+            <button id="clickButton">Clique aqui</button>
+            <div class="counter" id="counterDisplay">Cliques: 0</div>
+            <div id="activePlayers">Jogadores ativos: 0</div>
+        </main>
+        <aside>
+            <h2>Ranking</h2>
+            <ul id="rankingList"></ul>
+        </aside>
+    </div>
 
     <script src="script.js"></script>
 </body>
