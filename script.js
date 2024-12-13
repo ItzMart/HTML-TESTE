@@ -1,6 +1,6 @@
 // Estado inicial
 let count = 0;
-let players = {};
+let players = JSON.parse(localStorage.getItem("players")) || {}; // Carrega jogadores do localStorage
 let activePlayers = 0;
 
 // Referências aos elementos do DOM
@@ -23,8 +23,11 @@ themeToggle.addEventListener("click", () => {
 startButton.addEventListener("click", () => {
     const username = usernameInput.value.trim();
     if (username) {
-        players[username] = 0; // Adiciona o jogador ao ranking
+        if (!(username in players)) {
+            players[username] = 0; // Adiciona novo jogador com pontuação inicial
+        }
         activePlayers++;
+        savePlayers();
         updateActivePlayers();
         updateRanking();
         welcomeScreen.classList.add("hidden");
@@ -37,8 +40,9 @@ clickButton.addEventListener("click", () => {
     const username = usernameInput.value.trim();
     if (username in players) {
         players[username]++;
-        count++;
+        count = players[username]; // Atualiza contador local
         counterDisplay.textContent = `Cliques: ${count}`;
+        savePlayers();
         updateRanking();
     }
 });
@@ -58,3 +62,14 @@ function updateRanking() {
         rankingList.appendChild(listItem);
     }
 }
+
+// Salva os jogadores e suas pontuações no localStorage
+function savePlayers() {
+    localStorage.setItem("players", JSON.stringify(players));
+}
+
+// Carrega os dados ao iniciar
+window.addEventListener("load", () => {
+    updateRanking();
+    updateActivePlayers();
+});
